@@ -153,6 +153,7 @@ elseif ("$ENV{TARGET_ARCH}" STREQUAL "arm64")
 else()
   list(APPEND GN_GEN_ARGS
     rtc_build_tools=false
+    target_cpu=\\"x86\\"
   )
 endif()
 
@@ -366,6 +367,8 @@ if(WIN32)
     -DNOMINMAX
     -DWEBRTC_WIN
   )
+  set_property(TARGET ${MODULE} APPEND_STRING PROPERTY LINK_FLAGS " -m32")
+  set_property(TARGET ${MODULE} APPEND_STRING PROPERTY COMPILE_FLAGS " -m32")
 else()
   # NOTE(mroberts): Workaround for
   #

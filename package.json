@@ -31,7 +31,7 @@
   "dependencies": {
     "nan": "^2.3.2",
     "node-addon-api": "^1.6.2",
-    "node-cmake": "2.3.2",
+    "node-cmake": "2.5.1",
     "node-pre-gyp": "^0.13.0"
   },
   "optionalDependencies": {
@@ -75,7 +75,6 @@
     "ws": "^5.2.0"
   },
   "scripts": {
-    "install": "node scripts/download-prebuilt-or-build-from-source.js",
     "install-example": "node scripts/install-example.js",
     "lint": "eslint lib/*.js lib/**/*.js test/*.js test/**/*.js karma/*.js scripts/*.js",
     "publish-binary": "node scripts/publish.js",
