@@ -36,12 +36,12 @@ jobs:
 
       - run: |
           npm i
-          .\node_modules\.bin\ncmake configure -g "Visual Studio 15 2017" -a Win32
+          .\node_modules\.bin\ncmake configure -g "Visual Studio 15 2017" -a x86
           .\node_modules\.bin\ncmake build
         working-directory: C:\_\a\node-webrtc\node-webrtc
 
       - name: "Upload artifact: build dist (bundle + maps)"
         uses: actions/upload-artifact@v2
         with:
-          name: wrtc.*
+          name: wrtc-node-x32
           path: build/Release
