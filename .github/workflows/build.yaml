@@ -1,0 +1,47 @@
+name: Build node-webrtc
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-2016
+
+    steps:
+      - name: "Mount D: in C:\_"
+        run: |
+          mkdir C:\_
+          $VolumeName = & mountvol D: /L
+          mountvol C:\_ $VolumeName.Trim()
+
+      - uses: actions/checkout@v2
+        with:
+          ref: v0.4.6-x32
+
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v1.0.1
+        with:
+          vs-version: '[15,16)'
+
+      - name: Configure git-sh-setup path
+        run: echo "::add-path::C:\Program Files\Git\mingw64\libexec\git-core"
+
+      - run: |
+          npm i
+          .\node_modules\.bin\ncmake configure -g "Visual Studio 15 2017" -a Win32
+          .\node_modules\.bin\ncmake build
+        working-directory: C:\_\a\node-webrtc\node-webrtc
+
+      - name: "Upload artifact: build dist (bundle + maps)"
+        uses: actions/upload-artifact@v2
+        with:
+          name: wrtc.*
+          path: build/Release
