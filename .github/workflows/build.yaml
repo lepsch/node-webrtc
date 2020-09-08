@@ -2,9 +2,9 @@ name: Build node-webrtc
 
 on:
   push:
-    branches: [ master ]
+    branches: [ v0.4.6-x32 ]
   workflow_dispatch:
-    branches: [ master ]
+    branches: [ v0.4.6-x32 ]
 
 jobs:
   build:
